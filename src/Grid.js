@@ -21,8 +21,8 @@ class Grid extends Component {
     }
     let gridStyle = { 
       display: 'grid',
-      gridTemplateColumns: 'repeat(' + this.props.y + ', 10%)',
-      gridTemplateRows: 'repeat(' + this.props.x + ', 10%)',
+      gridTemplateColumns: 'repeat(' + this.props.y + ', '+ 100/this.props.y + '%)',
+      gridTemplateRows: 'repeat(' + this.props.x + ', ' + 100/this.props.x + '%)',
       position: 'absolute',
       top: 0,
       left: 0,
