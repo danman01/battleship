@@ -37,10 +37,51 @@ class Grid extends Component {
         gridItems.push(el)
       }
     }
+    
+    const ships = []
+    for(let i = 0; i < this.props.ships.length; i++){
+      let ship = this.props.ships[i]
+      let randomXStart = Math.floor((Math.random() * 10) + 1) // make dynamic based on x and y
+      let randomYStart = Math.floor((Math.random() * 10) + 1) // make dynamic based on x and y
+
+      let gridColumnStart;
+      let gridColumnEnd;
+      let gridRowStart;
+      let gridRowEnd;
+      if(ship.position === 'hor') {
+        gridColumnStart = this.props.y - ship.hp.length 
+        gridColumnEnd = this.props.y
+        gridRowStart = this.props.x - randomXStart
+        gridRowEnd = gridRowStart
+      } else {
+        gridRowStart = this.props.x - ship.hp.length
+        gridRowEnd = this.props.x 
+        gridColumnStart = this.props.y - randomYStart
+        gridColumnEnd = gridColumnStart
+      }
+
+      // TODO take into account ships already added so no collisions
+      let shipStyle = {
+        backgroundColor: 'gray',
+        gridColumnStart: gridColumnStart,
+        gridColumnEnd: gridColumnEnd,
+        gridRowStart: gridRowStart,
+        gridRowEnd: gridRowEnd
+      }
+      const shipBgStyle = {
+        height: '100%',
+        textAlign: 'left'
+      }
+      let ship_el = <div className='ship' style={shipStyle} key={i}><div className='bg' style={shipBgStyle}>ship {i}</div></div>
+      ships.push(ship_el)
+    }
     return (
-      <div style={boardStyle}>
-        <div style={gridStyle}>
+      <div className='board' style={boardStyle}>
+        <div className='plots' style={gridStyle}>
           {gridItems}
+        </div>
+        <div className='ships' style={gridStyle}>
+          {ships}
         </div>
       </div>
     )

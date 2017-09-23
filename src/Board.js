@@ -21,7 +21,7 @@ class Board extends Component {
             ))}
           </ul>
           <div>
-            <Grid x={10} y={10} />
+            <Grid ships={this.props.ships} x={10} y={10} />
           </div>
       </div>
     );
