@@ -80,6 +80,10 @@ class Grid extends Component {
       return(coords)
     }
 
+    const containsElement = function(el, index, arr) {
+      debugger
+      return el === arr[index]
+    }
 
     const generate_coords = function(callback,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship){
       //let coords = position(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) 
@@ -87,6 +91,9 @@ class Grid extends Component {
       let coords = callback(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
       // track occupied coords
       for( let c = 0; c <= ship.hp.length; c++){
+        //if(occupied_spaces.some(containsElement(coords))){
+        //  // what does this do
+        //}
         while(occupied_spaces.any(function(x){x === coords[c]})){
           // already taken -- regen coords
           coords = callback(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
