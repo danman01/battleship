@@ -36,7 +36,7 @@ class Grid extends Component {
     }
 
     const random = function(int){
-      Math.floor((Math.random() * int) + 1) // make dynamic based on x and y
+      return Math.floor((Math.random() * int) + 1) // make dynamic based on x and y
     }
 
     const gridItems = []
@@ -81,7 +81,6 @@ class Grid extends Component {
     }
 
     const containsElement = function(el, index, arr) {
-      debugger
       return el === arr[index]
     }
 
@@ -110,12 +109,14 @@ class Grid extends Component {
       let gridColumnEnd;
       let gridRowStart;
       let gridRowEnd;
+      let coords
       if(ship.position === 'hor') {
-        generate_coords(generate_hor_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
+        coords = generate_coords(generate_hor_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
       } else {
-        generate_coords(generate_ver_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) 
+        coords = generate_coords(generate_ver_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) 
       }
 
+      debugger 
 
       // TODO take into account ships already added so no collisions
       let shipStyle = {
@@ -129,7 +130,7 @@ class Grid extends Component {
         height: '100%',
         textAlign: 'left'
       }
-      let ship_el = <div className='ship' style={shipStyle} key={i}><div className='bg' style={shipBgStyle}>ship {i}</div></div>
+      let ship_el = <div data-coords={coords} className='ship' style={shipStyle} key={i}><div className='bg' style={shipBgStyle}>ship {i}</div></div>
         ships.push(ship_el)
     }
 

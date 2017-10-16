@@ -17,15 +17,10 @@ class Welcome extends Component {
   }
 
   handleChange(e) {
-    if(e.target.name === 'player1') {
-      this.setState({
-        player1: e.target.value
-      })
-    } else if (e.target.name === 'player2'){
-      this.setState({
-        player2: e.target.value
-      })
-    }
+    let name = e.target.name 
+    this.setState({
+      [name]: e.target.value
+    })
   }
 
   render() {
@@ -33,8 +28,8 @@ class Welcome extends Component {
       <div>
         {this.welcomeMessage()}
         <div>
-        <input onChange={this.handleChange.bind(this)} name='player1' value={this.state.player1} />
-        <input onChange={this.handleChange.bind(this)} name='player2' value={this.state.player2} />
+        <input type='text' onChange={this.handleChange.bind(this)} name='player1' value={this.state.player1} />
+        <input type='text' onChange={this.handleChange.bind(this)} name='player2' value={this.state.player2} />
 
       </div>
       </div>
