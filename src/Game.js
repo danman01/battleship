@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './Battleship_Logo.jpg';
 import Board from './Board'
+import Welcome from './Welcome'
 
 class Game extends Component {
   render() {
@@ -26,7 +27,7 @@ class Game extends Component {
         <div className="Game-header">
           <img src={logo} className="Game-logo" alt="logo" caption="Logo Copyright Tim Frame"/>
           <h2>Battleship</h2>
-          Welcome {this.props.player1} and {this.props.player2}!
+          <Welcome />
         </div>
         <p className="Game-intro">
           To get started, edit <code>src/Game.js</code> and save to reload.
