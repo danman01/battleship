@@ -9,20 +9,9 @@ class Board extends Component {
         <div className="Board-header">
           <h3>Board</h3>
         </div>
-          <ul>
-            {this.props.ships.map(item => (
-              <li key={this.props.ships.indexOf(item)}>
-                <ul>
-                  <li>ship</li>
-                  <li>hp: {item.hp.map((e) => new String(e))}</li>
-                  <li>Pos: {item.position}</li>
-                </ul>
-              </li>
-            ))}
-          </ul>
-          <div>
-            <Grid ships={this.props.ships} x={10} y={10} />
-          </div>
+        <div>
+          <Grid ships={this.props.ships} x={10} y={10} />
+        </div>
       </div>
     );
   }
