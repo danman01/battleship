@@ -17,7 +17,8 @@ class Game extends Component {
       }
       let ship = {
         hp: hp,
-        position: positions[size % 2]
+        position: positions[size % 2],
+        coords: []
       }
       ships.push(ship)
     }

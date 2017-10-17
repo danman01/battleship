@@ -8,7 +8,7 @@ class Welcome extends Component {
 
   welcomeMessage() {
     let msg
-    if((this.state.player1 != undefined && this.state.player1 != '') && (this.state.player2 != undefined && this.state.player2 != '')){
+    if((this.state.player1 !== undefined && this.state.player1 !== '') && (this.state.player2 !== undefined && this.state.player2 !== '')){
     msg = `Welcome ${this.state.player1} and ${this.state.player2}!`
     } else {
       msg = 'Please enter your names'

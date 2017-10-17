@@ -49,13 +49,18 @@ class Grid extends Component {
 
     const ships = []
     const occupied_spaces = []
-    const generate_hor_ship_coords = function(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) {
+    let gridColumnStart
+    let gridColumnEnd
+    let gridRowStart
+    let gridRowEnd
+
+    const generate_hor_ship_coords = function(ship) {
       let randomYStartLimit = props.y - ship.hp.length
       let randomYStart = random(randomYStartLimit)
 
       let randomXStart = random(props.x)
       gridColumnStart = randomYStart
-      gridColumnEnd = randomYStart + ship.hp.length
+      gridColumnEnd = randomYStart + ship.hp.length + 1
       gridRowStart = props.x - randomXStart
       gridRowEnd = gridRowStart
       let coords = []
@@ -65,14 +70,14 @@ class Grid extends Component {
       return(coords)
     }
 
-    const generate_ver_ship_coords = function(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship){
+    const generate_ver_ship_coords = function(ship){
       let randomXStartLimit = props.x - ship.hp.length
       let randomXStart = random(randomXStartLimit)
       let randomYStart = random(props.y)
       gridColumnStart = props.y - randomYStart
       gridColumnEnd = gridColumnStart
       gridRowStart = randomXStart
-      gridRowEnd = randomXStart + ship.hp.length
+      gridRowEnd = randomXStart + ship.hp.length + 1
       let coords = []
       for( let c = ship.hp.length; c >=0; c--){
         coords.push([gridRowStart + c ,gridColumnStart])
@@ -84,10 +89,8 @@ class Grid extends Component {
       return el === arr[index]
     }
 
-    const generate_coords = function(callback,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship){
-      //let coords = position(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) 
-      console.log(callback)
-      let coords = callback(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
+    const generate_coords = function(callback,ship){
+      let coords = callback(ship)
       // track occupied coords
       for( let c = 0; c <= ship.hp.length; c++){
         //if(occupied_spaces.some(containsElement(coords))){
@@ -95,7 +98,7 @@ class Grid extends Component {
         //}
         while(occupied_spaces.any(function(x){x === coords[c]})){
           // already taken -- regen coords
-          coords = callback(gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
+          coords = callback(ship)
         }
         occupied_spaces.push(coords[c])
       }
@@ -105,18 +108,13 @@ class Grid extends Component {
     for(let i = 0; i < this.props.ships.length; i++){
       let ship = this.props.ships[i]
 
-      let gridColumnStart;
-      let gridColumnEnd;
-      let gridRowStart;
-      let gridRowEnd;
-      let coords
+            let coords
       if(ship.position === 'hor') {
-        coords = generate_coords(generate_hor_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship)
+        coords = generate_coords(generate_hor_ship_coords, ship)
       } else {
-        coords = generate_coords(generate_ver_ship_coords,gridColumnStart, gridColumnEnd, gridRowStart, gridRowEnd, ship) 
+        coords = generate_coords(generate_ver_ship_coords, ship) 
       }
-
-      debugger 
+      ship.coords = coords
 
       // TODO take into account ships already added so no collisions
       let shipStyle = {
