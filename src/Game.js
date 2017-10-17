@@ -31,7 +31,7 @@ class Game extends Component {
           <Welcome />
         </div>
         <p className="Game-intro">
-          To get started, edit <code>src/Game.js</code> and save to reload.
+          This is a Work in Progress. The ships currently collide sometimes, and you can't yet fire on them. Also there's just one board for both players at this time.
         </p>
         <Board ships={ships} />
       </div>

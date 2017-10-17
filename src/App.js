@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Game from './Game';
 import logo from './logo.svg';
 import './App.css';
-import Home from './Home'
 import {
     BrowserRouter as Router,
     Route,
@@ -22,7 +21,7 @@ class App extends Component {
             <Link to="/">Home</Link>{' '}
             <Link to="/game">Game</Link>{' '}
           </nav>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Game} />
           <Route path="/game" component={Game} />
         </div>
       </Router>
