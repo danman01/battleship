@@ -15,3 +15,14 @@ describe('grid property on init', function() {
     expect(actual).to.eql(grid)
   })  
 })
+
+describe('adding two players on init', function() {
+  it('adds two players to playerOne and playerTwo props', function() {
+    let battleship = new Battleship()
+    let playerOne = battleship.playerOne
+    let playerTwo = battleship.playerTwo
+    expect(typeof playerOne).to.eql('object')
+    expect(typeof playerTwo).to.eql('object')
+    expect(playerOne.name).to.eql('')
+  })
+})

@@ -1,9 +1,9 @@
 Battleship build with javascript
 
 How the game works
+- game initializes with 10x10 grid
 - game starts with two players
 - each player can see their game board with a set of ships
-- the game board is a 10x10 grid
 - each player recieves five ships, the aircraft carrier, battleship, cruiser, submarine, and destroyer
 
 AI:
