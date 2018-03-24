@@ -6,10 +6,11 @@ const Battleship = function Battleship() {
 }
 
 Battleship.prototype.addPlayer = function() {
-  return {name: '', moves: 0, winner: false, upperGrid: this.createUpperGrid(), lowerGrid: this.createLowerGrid()}
+  return {name: '', moves: 0, winner: false, upperGrid: this.createUpperGrid(), lowerGrid: this.createLowerGrid(), ships: [], addShip: this.addShip}
 }
 
-Battleship.prototype.addShip = function(name) {
+
+Battleship.prototype.addShip = function(name, orientation, start_coord) {
   // TODO add tests
   const SHIPS = {
     'Aircraft Carrier': 5,
@@ -18,9 +19,16 @@ Battleship.prototype.addShip = function(name) {
     'Destroyer': 3,
     'Patrol Boat': 2
   }
-  this.ships.push(SHIPS[name])
-  return this.ships.length
+  let props = {name: name, length: SHIPS[name], orientation: orientation, start_coord}
+  let ship = Battleship.prototype.createShip(props)
+  this.ships.push(ship)
+  return ship
 }
+
+Battleship.prototype.createShip = function(props){
+  return props 
+}
+
   
 Battleship.prototype.createGrid = function() {
 // Players must arrange ships and record the shots made by their opponent on the lower grid, while recording their own shots on the upper grid.
