@@ -3,6 +3,21 @@ const expect = require('expect.js');
 let Battleship = require("./../src/battleship.js")
 
 
+let GridFactory = function(){
+  let grid = []
+  for(let x = 65; x < 75; x++){
+      for(let y = 0; y < 10; y++){
+        grid.push({
+          hit: undefined,
+          miss: undefined,
+          ship: undefined,
+          y: y,
+          x: String.fromCharCode(x)
+        })
+      }
+    }
+  return grid
+}
 describe('adding two players on init', function() {
   let battleship = new Battleship()
   let playerOne = battleship.playerOne
@@ -15,6 +30,22 @@ describe('adding two players on init', function() {
     expect(playerOne.ships).to.eql([])
   })
 
+  describe('grid property on init', function() {
+    describe('lower grid', function(){
+      it('returns a 10x10 grid of objects', function() {
+       let actual = playerOne.lowerGrid
+        expect(actual).to.eql(GridFactory())
+      })
+    })
+
+    describe('upper grid', function(){
+      it('returns a 10x10 grid of objects', function() {
+        let actual = playerOne.upperGrid
+        expect(actual).to.eql(GridFactory())
+      })
+    })
+  })
+
   describe('adding ships', function() {
     describe('creating a ship', function(){
       it('is initialized with appropriate props', function(){
@@ -22,7 +53,7 @@ describe('adding two players on init', function() {
           name: 'Patrol Boat',
           length: 2
         }
-        let ship = battleship.createShip(props) 
+        let ship = battleship._createShip(props) 
         expect(typeof ship).to.eql('object')
         expect(ship.name).to.eql(props.name)
         expect(ship.length).to.eql(props.length)
@@ -34,6 +65,28 @@ describe('adding two players on init', function() {
         battleship.playerOne.addShip('Battleship', 'horizontal', 'A1')
         expect(playerOne.ships.length).to.eql(2)
       })
+      it('adds the ship to the upperGrid for the player', function(){
+        battleship.playerOne.addShip('Aircraft Carrier', 'horizontal', 'C5')
+        let startingPoint = playerOne.upperGrid.find(function(space){
+          if(space.y == 5 && space.x == 'C'){
+            return space
+          }
+        })
+        expect(startingPoint.ship).not.to.be(undefined)
+        expect(startingPoint.ship.name).to.eql('Aircraft Carrier')
+        let nextPoint = playerOne.upperGrid.find(function(space){
+          if(space.y == 5 && space.x == 'G'){
+            return space
+          }
+        })
+        expect(nextPoint.ship.name).to.eql('Aircraft Carrier')
+        let outOfBounds = playerOne.upperGrid.find(function(space){
+          if(space.y == 5 && space.x == 'H'){
+            return space
+          }
+        })
+        expect(outOfBounds.ship).to.eql(undefined)
+      })
       // choose coordinates
       //   - can't go over boundary
       //   - can't intersect another ship
@@ -41,40 +94,5 @@ describe('adding two players on init', function() {
     })
   })
 
-  describe('grid property on init', function() {
-    describe('lower grid', function(){
-      it('returns a 10x10 grid of objects', function() {
-        let grid = []
-        for(let y = 0; y < 10; y++){
-          for(let x = 0; x < 10; x++){
-            grid.push({
-              hit: undefined,
-              miss: undefined
-            })
-          }
-        }
-
-        let actual = playerOne.lowerGrid
-        expect(actual).to.eql(grid)
-      })
-    })
-
-    describe('upper grid', function(){
-      it('returns a 10x10 grid of objects', function() {
-        let grid = []
-        for(let y = 0; y < 10; y++){
-          for(let x = 0; x < 10; x++){
-            grid.push({
-              hit: undefined,
-              miss: undefined
-            })
-          }
-        }
-
-        let actual = playerOne.upperGrid
-        expect(actual).to.eql(grid)
-      })
-    })
-  })
-
+  
 })
